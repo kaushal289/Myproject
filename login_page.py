@@ -35,6 +35,7 @@ class Login:
         self.register_btn.place(x=720, y=160)
         self.my_canvas.create_text(850, 270, text="LOGIN HERE", font=("Algerian", 40, 'bold'), fill="gold")
         self.var123=IntVar()
+        self.var123.set(1)
         Radiobutton(self.root1, text="USER", font=('times new roman', 16,'bold'),width=5, bg="royalblue2", variable=self.var123, value=1).place(x=750,y=300)
         Radiobutton(self.root1, text="ADMIN", font=('times new roman', 16,'bold'), bg="royalblue2", variable=self.var123,value=2).place(x=850, y=300)
 
@@ -66,7 +67,7 @@ class Login:
 
     def register_window(self):
         self.root1.withdraw()
-        registration_page.Register(Tk())
+        registration_page.Register(Toplevel())
 
 
     def login(self):
@@ -85,23 +86,19 @@ class Login:
                 row = cur.fetchone()
                 if self.username_entry.get()=='admin' and self.password_entry.get()=='admin' and self.var123.get()==2:
                     messagebox.showinfo("Success", "Successful login", parent=self.root1)
+                    self.root1.withdraw()
                     main_page.MainPage(Tk())
                 elif self.username_entry.get()=='admin' and self.password_entry.get()=='admin' and self.var123.get()==1:
                     print(self.var123.get())
                     messagebox.showerror("Error", "Select currect authority", parent=self.root1)
                 elif row==None:
                     messagebox.showerror("Error","Invalid username and password",parent=self.root1)
-                elif row[1]==self.username_entry.get() and row[2]==self.password_entry.get() and self.var123.get()==1:
+                elif row!=None and self.var123.get()==1:
                     messagebox.showinfo("Success","Successful login",parent=self.root1)
-                    main_page.MainPage(Tk())
-                elif self.username_entry.get()=='admin' and self.password_entry.get()=='admin' and self.var123.get()==2:
-                    main_page.MainPage(Tk())
-                elif row[1]==self.username_entry.get() and row[2]==self.password_entry.get() and self.var123.get()==2:
-                    messagebox.showerror("Error","Select currect authority",parent=self.root1)
-                else:
-
+                    self.root1.withdraw()
+                    main_page.MainPage(Toplevel())
+                elif row!=None and self.var123.get()==2:
                     messagebox.showerror("Error", "Select currect authority", parent=self.root1)
-
                 con.close()
 
             except:

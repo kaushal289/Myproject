@@ -150,7 +150,7 @@ class Register:
 
     def login_window(self):
         self.root2.destroy()
-        login_page.Login(Tk())
+        login_page.Login(Toplevel())
 
 
 
