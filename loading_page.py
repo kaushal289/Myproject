@@ -4,7 +4,7 @@ from PIL import ImageTk, Image
 import time
 import threading
 from playsound import playsound
-import login_page
+import  login_page
 class Loading:
     def __init__(self):
         self.root=Tk()
